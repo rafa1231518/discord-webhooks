@@ -1,3 +1,6 @@
+'use strict';
+/*jshint node:true*/
+
 const request = require("request");
 const EventEmitter = require("events").EventEmitter;
 const util = require("util");
@@ -12,10 +15,11 @@ function DiscordWebhook(url) {
       method:"POST",
       body:payload,
       json:true
-    }, (e,r,b) => {
+    }, (e/*,r,b*/) => {
       if (e) throw e;
     });
-  }
+  };
+  
   request(url, (e,r,b) => {
     if (e) {
       this.emit("error", e);
@@ -23,7 +27,7 @@ function DiscordWebhook(url) {
     }
 
     try {
-      data = JSON.parse(b);
+      let data = JSON.parse(b);
       this.name = data.name;
       this.channel_id = data.channel_id;
       this.token = data.token;
@@ -31,8 +35,8 @@ function DiscordWebhook(url) {
       this.guild_id = data.guild_id;
       this.id = data.id;
       this.emit("ready");
-    } catch (e) {
-      this.emit("error", e);
+    } catch (ex) {
+      this.emit("error", ex);
     }
   });
   EventEmitter.call(this);
