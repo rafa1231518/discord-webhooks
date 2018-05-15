@@ -20,6 +20,6 @@
   },
   "homepage": "https://github.com/ZudoMC/discord-webhooks#readme",
   "dependencies": {
-    "request": "^2.75.0"
+    "request": "^2.86.0"
   }
 }
